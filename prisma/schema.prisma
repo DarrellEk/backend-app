@@ -30,12 +30,16 @@ model Memories {
   date_of_birth DateTime?
   created_at    DateTime @default(now())
   updated_at    DateTime @updatedAt
+  images        Images[]
+  videos        Videos[]
 }
 
 model Images {
   id            Int        @id @default(autoincrement())
   url           String   
   description   String?
+  memory        Memories   @relation(fields: [memoryId], references:[id])
+  memoryId      Int
   created_at    DateTime @default(now())
   updated_at    DateTime @updatedAt        
 }
@@ -44,6 +48,8 @@ model Videos {
   id            Int        @id @default(autoincrement())
   url           String   
   description   String?
+  memory        Memories   @relation(fields: [memoryId], references:[id])
+  memoryId      Int
   created_at    DateTime @default(now())
   updated_at    DateTime @updatedAt  
 }
