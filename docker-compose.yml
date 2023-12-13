@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   db:
-    container_name: building_memories
+    container_name: building_memory
     image: postgres:14.1-alpine
     restart: always
     environment:
