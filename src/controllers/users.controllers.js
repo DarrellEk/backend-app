@@ -20,27 +20,22 @@ router.post('/', async (req, res) => {
 data.password = bcrypt.hashSync(data.password, 8);
 console.log('Hashed password:', data.password);
 
-try {
-  const user = await prisma.users.create({
-    data,
-  });
-  console.log('Created user:', user);
+prisma.users.create({
+  data
+}).then(users => {
+  return res.json(filter(users, 'id', 'email'))
 
-  return res.json(filter(user, 'id', 'username', 'email'));
-} catch (err) {
-  console.error('Error during user creation:', err);
-
+}).catch(err => {
   if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2002') {
-    const formattedError = {};
-    formattedError[`${err.meta.target[0]}`] = 'already taken';
+    const formattedError = {}
+    formattedError[`${err.meta.target[0]}`] = 'already taken'
 
     return res.status(500).send({
-      error: formattedError,
-    });
+      error: formattedError
+    })
   }
-
-  throw err;
-}
-});
+  throw err
+})
+})
 
 export default router
