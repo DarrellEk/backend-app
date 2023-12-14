@@ -23,7 +23,7 @@ model Users {
 }
 
 model Memories {
-  id             Int        @id @default(autoincrement())
+  id            Int        @id @default(autoincrement())
   location      String   
   time          DateTime   @unique
   description   String?
@@ -39,7 +39,7 @@ model Memories {
 
 model Images {
   id            Int        @id @default(autoincrement())
-  url           String   
+  url           String     @unique
   description   String?
   memory        Memories   @relation(fields: [memoryId], references:[id])
   memoryId      Int
@@ -49,7 +49,7 @@ model Images {
 
 model Videos {
   id            Int        @id @default(autoincrement())
-  url           String     
+  url           String     @unique  
   description   String?
   memory        Memories   @relation(fields: [memoryId], references:[id])
   memoryId      Int
