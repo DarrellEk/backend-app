@@ -6,32 +6,41 @@ import { validateUser } from "../validators/users.js"
 import { filter } from "../utils/common.js"
 const router = express.Router()
 
-router.post('/users', async (req, res) => {
+router.post('/', async (req, res) => {
     const data = req.body
+    console.log('Received data:', data);
 
-    const validationErrors = validateUser(data)
+    const validationErrors = validateUser(data);
+    console.log('Validation errors:', validationErrors);
 
     if (Object.keys(validationErrors).length != 0) return res.status(400).send({
         error: validationErrors
       })
 
 data.password = bcrypt.hashSync(data.password, 8);
-prisma.users.create({
-    data
-  }).then(user => {
-    return res.json(filter(user, 'id', 'name', 'email' ))
+console.log('Hashed password:', data.password);
 
-  }).catch(err => {
-    if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2002') {
-      const formattedError = {}
-      formattedError[`${err.meta.target[0]}`] = 'already taken'
+try {
+  const user = await prisma.users.create({
+    data,
+  });
+  console.log('Created user:', user);
 
-      return res.status(500).send({
-        error: formattedError
-      }); 
-    }
-    throw err  
-  })
-})
+  return res.json(filter(user, 'id', 'username', 'email'));
+} catch (err) {
+  console.error('Error during user creation:', err);
+
+  if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2002') {
+    const formattedError = {};
+    formattedError[`${err.meta.target[0]}`] = 'already taken';
+
+    return res.status(500).send({
+      error: formattedError,
+    });
+  }
+
+  throw err;
+}
+});
 
 export default router
