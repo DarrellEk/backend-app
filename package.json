@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "type": "module",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start": "npx dotenv -e .env.development node server.js",
     "start:dev": "npx dotenv -e .env.development nodemon server.js",
