@@ -8,11 +8,12 @@ const uploadImageRouter = express.Router()
 uploadImageRouter.use(cors());
 
 uploadImageRouter.post('/', auth, (req,res)=>{
+  //eg.:
     /*
     {
         url: "https://abcdefg@example.com"     
         description: "description"   
-        memoryId: "5"    
+        memoryId: "1"    
     }
     */
     const data = req.body

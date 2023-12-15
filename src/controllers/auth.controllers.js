@@ -21,7 +21,7 @@ router.post('/', async (req, res) => {
         email: data.email
       }
     })
-  
+    
     if (!user) return res.status(401).send({
       error: 'Email address or password not valid'
     })

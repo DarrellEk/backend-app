@@ -28,7 +28,6 @@ model Memories {
   time          DateTime   @unique
   description   String?
   title         String     @unique
-  date_of_birth DateTime?
   created_at    DateTime @default(now())
   updated_at    DateTime @updatedAt
   images        Images[]
@@ -55,4 +54,11 @@ model Videos {
   memoryId      Int
   created_at    DateTime @default(now())
   updated_at    DateTime @updatedAt  
+}
+
+model Products{
+  id            Int        @id @default(autoincrement())
+  name          String     @unique
+  description   String
+  price         Int   //store price as actual value*100. 
 }
