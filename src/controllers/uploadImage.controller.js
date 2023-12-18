@@ -36,4 +36,33 @@ uploadImageRouter.post('/', auth, (req,res)=>{
     
 })
 
+uploadImageRouter.delete('/:id', auth, async (req, res) => {
+  const imageId = parseInt(req.params.id, 10);
+
+  try {
+    const deletedImage = await prisma.images.delete({
+      where: { id: imageId },
+    });
+
+    res.json(filter(deletedImage, 'id', 'url', 'memoryId'));
+  } catch (error) {
+    res.status(500).send({ error: 'Error deleting the image' });
+  }
+});
+
+uploadImageRouter.put('/:id', auth, async (req, res) => {
+  const imageId = parseInt(req.params.id, 10);
+  const updatedData = req.body;
+
+  try {
+    const updatedImage = await prisma.images.update({
+      where: { id: imageId },
+      data: updatedData,
+    });
+    res.json(filter(updatedImage, 'id', 'url', 'memoryId'));
+  } catch (error) {
+    res.status(500).send({ error: 'Error updating the image' });
+  }
+
+})
 export default uploadImageRouter
