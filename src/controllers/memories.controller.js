@@ -36,7 +36,8 @@ memoriesRouter.post('/', auth, async (req,res)=>{
         })
         res.json(filter(memory, 'id', 'title','userId'))
     }catch(error){
-        res.status(500).send({error: error.message})
+        console.log("error:", error.message);
+        res.status(500).send({error: "Error entering memory"})
     }
     
 })
