@@ -2,7 +2,6 @@ import express from 'express'
 import prisma from "../utils/prisma.js"
 import { filter } from "../utils/common.js"
 import auth from '../middlewares/auth.js'
-import { Prisma } from '@prisma/client'
 import cors from "cors";
 import { validateMemory } from '../validators/memories.js'
 const memoriesRouter = express.Router()
@@ -41,20 +40,6 @@ memoriesRouter.post('/', auth, async (req,res)=>{
     }
     
 })
-
-// memoriesRouter.delete('/:id', auth, async (req, res) => {
-//   const imageId = parseInt(req.params.id, 10);
-
-//   try {
-//     const deletedImage = await prisma.images.delete({
-//       where: { id: imageId },
-//     });
-
-//     res.json(filter(deletedImage, 'id', 'url', 'memoryId'));
-//   } catch (error) {
-//     res.status(500).send({ error: 'Error deleting the image' });
-//   }
-// });
 
 memoriesRouter.put('/:id', auth, async (req, res) => {
   const memoryId = parseInt(req.params.id, 10);
