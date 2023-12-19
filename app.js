@@ -5,6 +5,7 @@ import authRouter from "./src/controllers/auth.controllers.js";
 import imagesRouter from "./src/controllers/images.controller.js"
 import paymentRouter from "./src/controllers/payment.controller.js";
 import memoriesRouter from "./src/controllers/memories.controller.js";
+import videosRouter from "./src/controllers/videos.controllers.js";
 import cors from "cors";
 import morgan from "morgan";
 
@@ -17,6 +18,7 @@ app.use('/auth', authRouter);
 app.use('/images', imagesRouter);
 app.use('/payment', paymentRouter);
 app.use('/memories', memoriesRouter);
+app.use('/videos', videosRouter);
 
 export default app;
 
