@@ -25,9 +25,9 @@ model Users {
 model Memories {
   id            Int        @id @default(autoincrement())
   location      String   
-  time          DateTime   @unique
+  time          DateTime   
   description   String?
-  title         String     @unique
+  title         String     
   created_at    DateTime @default(now())
   updated_at    DateTime @updatedAt
   images        Images[]

@@ -4,14 +4,14 @@ import { filter } from "../utils/common.js"
 import auth from '../middlewares/auth.js'
 import { Prisma } from '@prisma/client'
 import cors from "cors";
-const uploadImageRouter = express.Router()
-uploadImageRouter.use(cors());
+const imagesRouter = express.Router()
+imagesRouter.use(cors());
 
-uploadImageRouter.post('/', auth, (req,res)=>{
+imagesRouter.post('/', auth, (req,res)=>{
   //eg.:
     /*
     {
-        url: "https://abcdefg@example.com"     
+        url: "https://abcdefgexample/img.com"     
         description: "description"   
         memoryId: "1"    
     }
@@ -36,7 +36,7 @@ uploadImageRouter.post('/', auth, (req,res)=>{
     
 })
 
-uploadImageRouter.delete('/:id', auth, async (req, res) => {
+imagesRouter.delete('/:id', auth, async (req, res) => {
   const imageId = parseInt(req.params.id, 10);
 
   try {
@@ -50,7 +50,7 @@ uploadImageRouter.delete('/:id', auth, async (req, res) => {
   }
 });
 
-uploadImageRouter.put('/:id', auth, async (req, res) => {
+imagesRouter.put('/:id', auth, async (req, res) => {
   const imageId = parseInt(req.params.id, 10);
   const updatedData = req.body;
 
@@ -65,4 +65,4 @@ uploadImageRouter.put('/:id', auth, async (req, res) => {
   }
 
 })
-export default uploadImageRouter
+export default imagesRouter
