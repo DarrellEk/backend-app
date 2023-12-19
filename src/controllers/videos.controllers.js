@@ -4,9 +4,9 @@ import { filter } from '../utils/common.js';
 import auth from '../middlewares/auth.js';
 import { Prisma } from '@prisma/client';
 
-const uploadVideosRouter = express.Router();
+const videosRouter = express.Router();
 
-uploadVideosRouter.post('/', auth, async (req, res) => {
+videosRouter.post('/', auth, async (req, res) => {
   // Example request body for uploading a video:
   /*
   {
@@ -37,7 +37,7 @@ uploadVideosRouter.post('/', auth, async (req, res) => {
     });
 });
 
-uploadVideosRouter.delete('/:id', auth, async (req, res) => {
+videosRouter.delete('/:id', auth, async (req, res) => {
     const videoId = parseInt(req.params.id, 10);
 
     try {
@@ -51,7 +51,7 @@ uploadVideosRouter.delete('/:id', auth, async (req, res) => {
     }
 });
 
-uploadVideosRouter.put('/:id', auth, async (req, res) => {
+videosRouter.put('/:id', auth, async (req, res) => {
     const videoId = parseInt(req.params.id, 10);
     const updatedData = req.body;
   
@@ -66,4 +66,4 @@ uploadVideosRouter.put('/:id', auth, async (req, res) => {
     }
 });
 
-export default uploadVideosRouter;
+export default videosRouter;
