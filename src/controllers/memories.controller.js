@@ -59,8 +59,41 @@ memoriesRouter.put('/:id', auth, async (req, res) => {
     });
     res.json(filter(updatedMemory, 'id', 'title', 'userId'));
   } catch (error) {
+    console.log("error:", error.message);
     res.status(500).send({ error: 'Error updating the memory' });
   }
 
 })
+
+memoriesRouter.delete('/:id', auth, async (req, res) => {
+  const memoryId = parseInt(req.params.id, 10);
+
+  try{
+    //delete all images and videos belonging to the memory first. 
+    //User should be warned that all images and videos associated with the memory will be deleted as well
+    await prisma.images.deleteMany({
+      where:{
+        memoryId: memoryId
+      }
+    })
+    await prisma.videos.deleteMany({
+      where:{
+        memoryId: memoryId
+      }
+    })
+
+    //then only can the memory be deleted
+    const deletedMemory = await prisma.memories.delete({
+      where:{
+        id: memoryId
+      }
+    })
+
+    res.json(filter(deletedMemory, 'id', 'title', 'userId'));
+  }catch(error){
+    console.log("error:", error.message);
+    res.status(500).send({error: 'Error deleting the memory'});
+  }
+});
+
 export default memoriesRouter
