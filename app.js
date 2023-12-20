@@ -1,5 +1,5 @@
 import express from "express"
-
+import auth from "./src/middlewares/auth.js";
 import userRouter from "./src/controllers/users.controllers.js";
 import authRouter from "./src/controllers/auth.controllers.js";
 import imagesRouter from "./src/controllers/images.controller.js"
