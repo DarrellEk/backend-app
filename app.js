@@ -20,6 +20,11 @@ app.use('/payment', paymentRouter);
 app.use('/memories', memoriesRouter);
 app.use('/videos', videosRouter);
 
+//endpoint requiring auth for verifying token
+app.get('/protected', auth,(req,res)=>{
+    res.json({"token": "accepted"})
+})
+
 export default app;
 
 
